@@ -55,3 +55,57 @@ wall3 = Wall('w3',1020,450,5,300)
 levelwalls.add(wall, wall1, wall3)
 
 all_sprites.add(levelwalls,levelitems)
+
+
+def level():
+    moveX,moveY=0,0
+    player.set_location(level)
+    background = pygame.image.load("backgrounds/forest.jpg").convert()
+    while True:#Game Loop
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_a:
+                    moveX = -5
+                if event.key==pygame.K_d:
+                    moveX = 5
+                if event.key==pygame.K_w:
+                    moveY = -5
+                if event.key==pygame.K_s:
+                    moveY = 5
+                if event.key==pygame.K_e:
+                    moveX = 0
+                    moveY = 0
+                    inventoryMenu()
+                if (event.key==K_ESCAPE):
+                    moveX=0
+                    moveY=0
+                    pauseMenu()
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_a:
+                    moveX=0
+                if event.key==pygame.K_d:
+                    moveX=0
+                if event.key==pygame.K_w:
+                    moveY=0
+                if event.key==pygame.K_s:
+                    moveY=0
+        if player.get_x() < 5:
+            player.set_rect(DISPLAYWIDTH-100, player.get_y(),
+                            player.get_width(), player.get_height())
+            level2()
+        DISPLAYSURF.blit(background, (0,0))
+        player.update(moveX,moveY,levelitems,levelwalls)
+        player.draw(DISPLAYSURF)
+        levelitems.draw(DISPLAYSURF)
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
+
+
+
+#START LOCATION
+player.set_location(level)
+######START GAME
+startMenu()
