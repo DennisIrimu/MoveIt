@@ -104,6 +104,18 @@ def level():
         pygame.display.update()
 
 
+level2items = pygame.sprite.Group()
+coin = Item('c3',350,575,{'coin':1},coinImg,coinSound)
+level2items.add(coin)
+level2walls = pygame.sprite.Group()
+wall = Wall('w4',0,450,1000,10)
+wall1 = Wall('w5',0,683,1000,10)
+wall2 = Wall('w6',0,450,5,300)
+level2walls.add(wall, wall1, wall2)
+
+all_sprites.add(level2walls,level2items)
+
+
 
 #START LOCATION
 player.set_location(level)
