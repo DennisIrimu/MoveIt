@@ -160,6 +160,12 @@ def level2():
         FPSCLOCK.tick(FPS)
         pygame.display.update()
 
+scroll = pygame.image.load("backgrounds/scroll.png").convert_alpha()
+scroll = pygame.transform.scale(scroll, (844, 543))#scroll (width, height)
+scrollX = 90#90 is default
+scrollY = 70#70 is default
+
+
 #START LOCATION
 player.set_location(level)
 ######START GAME
