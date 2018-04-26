@@ -328,6 +328,18 @@ def saveObject(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 
+def importGame():
+    allNames = importNames('GuyGameSpriteSave.obj')
+    for sprite in all_sprites:
+        if sprite.get_name() not in allNames:
+            sprite.kill()
+    playerTraits = importPlayer('GuyGamePlayerSave.obj')
+    player.set_rect(playerTraits[0],playerTraits[1],
+                    player.get_width(),player.get_height())
+    player.set_inventory(playerTraits[2])
+    player.set_location(playerTraits[3])
+    player.get_location()()
+
 #START LOCATION
 player.set_location(level)
 ######START GAME
