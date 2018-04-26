@@ -261,6 +261,25 @@ def pauseMenu():
     else:
         pygame.quit()
         sys.exit()
+
+
+def loadMenu():
+    Loadtext = inventoryFont.render("Restart the game and choose 'load game' at the start menu.", True, BLACK)
+    Loadtext2 = inventoryFont.render("Press esc to return to the game.", True, BLACK)
+    while True:
+        for event in pygame.event.get():
+            if (event.type==pygame.QUIT):
+                pygame.quit()
+                sys.exit()
+            if (event.type==pygame.KEYDOWN):
+                if (event.key==K_ESCAPE):
+                    return        
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        DISPLAYSURF.blit(Loadtext, (170,150))
+        DISPLAYSURF.blit(Loadtext2, (170,200))
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
+
 #START LOCATION
 player.set_location(level)
 ######START GAME
