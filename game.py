@@ -3,6 +3,9 @@ import pickle
 from pygame.locals import *
 from items_classes import *
 from player_classes import *
+import os
+os.getcwd()
+pygame.mixer.pre_init(44100, -16,2,2048)
 
 #Colours    R...G...B
 WHITE = (255, 255, 255)
@@ -33,11 +36,15 @@ FPS = 30
 FPSCLOCK = pygame.time.Clock()
 pygame.display.set_caption("Lost in the Forest!")
 
+pygame.mixer.music.load("move.mp3")
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play(-1)
+
 inventoryFont = pygame.font.Font(None, 32)
 selectFont = pygame.font.Font(None, 32)
 selectFont.set_underline(True)
 charImgs = ('characters/guy0.png','characters/guy1.png','characters/guy2.png')
-coinImg = 'items/coin0.png' 
+coinImg = 'items/coin0.png'
 mapImg = 'items/map.png'
 coinSound = 'sounds/coin.wav'
 player = Player(700,500,charImgs)#starting(x,y)coords
@@ -254,7 +261,7 @@ def pauseMenu():
                 DISPLAYSURF.blit(Notext, (xcoord,ycoord))
                 ycoord += 50
         FPSCLOCK.tick(FPS)
-        pygame.display.update()         
+        pygame.display.update()
     if selection == 0:
         saveMenu()
     elif selection == 1:
@@ -274,7 +281,7 @@ def loadMenu():
                 sys.exit()
             if (event.type==pygame.KEYDOWN):
                 if (event.key==K_ESCAPE):
-                    return        
+                    return
         DISPLAYSURF.blit(scroll, (scrollX,scrollY))
         DISPLAYSURF.blit(Loadtext, (170,150))
         DISPLAYSURF.blit(Loadtext2, (170,200))
@@ -321,7 +328,7 @@ def saveGame():
     for sprite in all_sprites:
         allNames.append(sprite.get_name())
     playerTraits = (player.get_x(),player.get_y(),player.get_inventory(),player.get_location())
-    saveObject(playerTraits, 'GuyGamePlayerSave.obj') 
+    saveObject(playerTraits, 'GuyGamePlayerSave.obj')
     saveObject(allNames, 'GuyGameSpriteSave.obj')
 
 def saveObject(obj, filename):
