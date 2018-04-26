@@ -115,7 +115,50 @@ level2walls.add(wall, wall1, wall2)
 
 all_sprites.add(level2walls,level2items)
 
-
+def level2():
+    moveX,moveY=0,0
+    player.set_location(level2)
+    background = pygame.image.load("backgrounds/forestfront.jpg").convert()
+    while True:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_a:
+                    moveX = -5
+                if event.key==pygame.K_d:
+                    moveX = 5
+                if event.key==pygame.K_w:
+                    moveY = -5
+                if event.key==pygame.K_s:
+                    moveY = 5
+                if event.key==pygame.K_e:
+                    moveX = 0
+                    moveY = 0
+                    inventoryMenu()
+                if (event.key==K_ESCAPE):
+                    moveX=0
+                    moveY=0
+                    pauseMenu()
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_a:
+                    moveX=0
+                if event.key==pygame.K_d:
+                    moveX=0
+                if event.key==pygame.K_w:
+                    moveY=0
+                if event.key==pygame.K_s:
+                    moveY=0
+        if player.get_x() > DISPLAYWIDTH-90:
+            player.set_rect(10, player.get_y(), player.get_width(), player.get_height())
+            level()
+        DISPLAYSURF.blit(background, (0,0))
+        player.update(moveX,moveY,level2items,level2walls)
+        player.draw(DISPLAYSURF)
+        level2items.draw(DISPLAYSURF)
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
 
 #START LOCATION
 player.set_location(level)
