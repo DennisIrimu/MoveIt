@@ -279,6 +279,7 @@ def loadMenu():
         DISPLAYSURF.blit(Loadtext2, (170,200))
         FPSCLOCK.tick(FPS)
         pygame.display.update()
+
 def saveMenu():
     inMenu = True
     save = False
@@ -314,6 +315,14 @@ def saveMenu():
     if save == True:
         saveGame()
 
+def saveGame():
+    allNames = []
+    for sprite in all_sprites:
+        allNames.append(sprite.get_name())
+    playerTraits = (player.get_x(),player.get_y(),player.get_inventory(),player.get_location())
+    saveObject(playerTraits, 'GuyGamePlayerSave.obj') 
+    saveObject(allNames, 'GuyGameSpriteSave.obj')
+        
 #START LOCATION
 player.set_location(level)
 ######START GAME
