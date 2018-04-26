@@ -165,6 +165,53 @@ scroll = pygame.transform.scale(scroll, (844, 543))#scroll (width, height)
 scrollX = 90#90 is default
 scrollY = 70#70 is default
 
+def startMenu():
+    background = pygame.image.load("backgrounds/forest.jpg").convert()
+    selectNew = True
+    loadingFail = False
+    xcoord = 212
+    Titletext = inventoryFont.render('Welcome to your adventure game!', True, BLACK)
+    while True:
+        ycoord = 150
+        DISPLAYSURF.blit(background, (0,0))
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        for event in pygame.event.get():
+            if (event.type==pygame.QUIT):
+                pygame.quit()
+                sys.exit()
+            if (event.type==pygame.KEYDOWN):
+                if (event.key==pygame.K_w):
+                    selectNew = True
+                if (event.key==pygame.K_s):
+                    selectNew = False
+                if (event.key==K_SPACE):
+                    if selectNew == True:
+                        player.get_location()()
+                    else:
+                        try:
+                            importGame()
+                        except:
+                            loadingFail = True
+                            selectNew = True
+                            print('Make sure the save files are saved as ' +
+                                 'GuyGameSpriteSave.obj and GuyGamePlayerSave.obj ' +
+                                  'in the same directory as MainGame.py')
+        if selectNew == True:
+            Newtext = selectFont.render('New Game!', True, BLACK)
+            Loadtext = inventoryFont.render('Load Game!', True, BLACK)
+        else:
+            Newtext = inventoryFont.render('New Game!', True, BLACK)
+            Loadtext = selectFont.render('Load Game!', True, BLACK)
+        if loadingFail:
+            Loadtext = inventoryFont.render('Save files not found. Try a new game.', True, BLACK)
+            selectNew = True
+        DISPLAYSURF.blit(Titletext, (xcoord,ycoord))
+        ycoord += 50
+        DISPLAYSURF.blit(Newtext, (xcoord,ycoord))
+        ycoord += 50
+        DISPLAYSURF.blit(Loadtext, (xcoord,ycoord))
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
 
 #START LOCATION
 player.set_location(level)
