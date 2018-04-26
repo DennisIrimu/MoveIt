@@ -129,7 +129,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = collision.get_top()
             else:
                 self.rect.top = collision.get_bottom()
-                
+
     def update_inventory(self, item):
         '''adds item to inventory
         item: a dictionary of key value pairs that will be added self.inventory'''
@@ -138,4 +138,34 @@ class Player(pygame.sprite.Sprite):
                 self.inventory[key] += item[key]
             else:
                 self.inventory[key] = item[key]
+
+
+    def get_location(self):
+        return self.location
+
+    def set_location(self, location):
+        self.location = location
+
+    def get_width(self):
+        return self.rect.w
+
+    def get_height(self):
+        return self.rect.h
+
+    def get_x(self):
+        return self.rect.x
+
+    def get_y(self):
+        return self.rect.y
+
+    def set_rect(self, newx, newy, newwidth, newheight):
+        self.oldx = self.rect.x
+        self.oldy = self.rect.y
+        self.rect.x = newx
+        self.rect.y = newy
+        self.rect.width = newwidth
+        self.rect.height = newheight
+
+    def set_inventory(self, inventory):
+        self.inventory = inventory
     
