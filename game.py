@@ -212,7 +212,55 @@ def startMenu():
         DISPLAYSURF.blit(Loadtext, (xcoord,ycoord))
         FPSCLOCK.tick(FPS)
         pygame.display.update()
-
+def pauseMenu():
+    inMenu = True
+    xcoord = 212
+    selection = 0
+    Titletext = inventoryFont.render('Paused -Press escape to return to the game.',
+                                     True, BLACK)
+    menuTexts = ['Save Game', 'Load Game', 'Exit Game']
+    while inMenu:
+        ycoord = 150
+        for event in pygame.event.get():
+            if (event.type==pygame.QUIT):
+                pygame.quit()
+                sys.exit()
+            if (event.type==pygame.KEYDOWN):
+                if (event.key==K_w):
+                    if selection <= 0:
+                        selection = 2
+                    else:
+                        selection -= 1
+                if (event.key==K_s):
+                    if selection >= 2:
+                        selection = 0
+                    else:
+                        selection += 1
+                if (event.key==K_SPACE):
+                    inMenu = False
+                if (event.key==K_ESCAPE):
+                    return
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        DISPLAYSURF.blit(Titletext, (xcoord,ycoord))
+        ycoord += 50
+        for text in menuTexts:
+            if menuTexts.index(text) == selection:
+                Selecttext = selectFont.render(text, True, BLACK)
+                DISPLAYSURF.blit(Selecttext, (xcoord,ycoord))
+                ycoord += 50
+            else:
+                Notext = inventoryFont.render(text, True, BLACK)
+                DISPLAYSURF.blit(Notext, (xcoord,ycoord))
+                ycoord += 50
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()         
+    if selection == 0:
+        saveMenu()
+    elif selection == 1:
+        loadMenu()
+    else:
+        pygame.quit()
+        sys.exit()
 #START LOCATION
 player.set_location(level)
 ######START GAME
