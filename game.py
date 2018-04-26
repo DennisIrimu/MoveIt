@@ -339,7 +339,16 @@ def importGame():
     player.set_inventory(playerTraits[2])
     player.set_location(playerTraits[3])
     player.get_location()()
+    
+def importPlayer(filename):
+    with open(filename, 'rb') as input:
+        playerTraits = pickle.load(input)
+    return playerTraits
 
+def importNames(filename):
+    with open(filename, 'rb') as input:
+        allNames = pickle.load(input)
+    return allNames
 #START LOCATION
 player.set_location(level)
 ######START GAME
