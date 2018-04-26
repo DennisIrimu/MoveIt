@@ -1,4 +1,5 @@
 import pygame,sys
+import pickle
 from pygame.locals import *
 from items_classes import *
 from player_classes import *
@@ -322,7 +323,11 @@ def saveGame():
     playerTraits = (player.get_x(),player.get_y(),player.get_inventory(),player.get_location())
     saveObject(playerTraits, 'GuyGamePlayerSave.obj') 
     saveObject(allNames, 'GuyGameSpriteSave.obj')
-        
+
+def saveObject(obj, filename):
+    with open(filename, 'wb') as output:
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
 #START LOCATION
 player.set_location(level)
 ######START GAME
