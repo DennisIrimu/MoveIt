@@ -339,7 +339,7 @@ def importGame():
     player.set_inventory(playerTraits[2])
     player.set_location(playerTraits[3])
     player.get_location()()
-    
+
 def importPlayer(filename):
     with open(filename, 'rb') as input:
         playerTraits = pickle.load(input)
@@ -349,6 +349,80 @@ def importNames(filename):
     with open(filename, 'rb') as input:
         allNames = pickle.load(input)
     return allNames
+
+
+
+def inventoryMenu():
+    '''chooses inventory menu'''
+    playerInv = player.get_inventory()
+    invKeys = []
+    if playerInv == {}:
+        emptyInvMessage()
+    else:
+        for key in playerInv.keys():
+            invKeys.append(key)
+        if len(invKeys) <= 8:
+            smallInvMenu(playerInv, invKeys)
+
+def emptyInvMessage():
+    HeaderText = inventoryFont.render('--Inventory--', True, BLACK)
+    EmptyText = inventoryFont.render('Inventory is Empty... Go find some stuff!!', True, BLACK)
+    xcoord = 212
+    ycoord = 150
+    Open = True
+    while Open:
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_e:
+                    Open = False
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        DISPLAYSURF.blit(HeaderText, (xcoord,ycoord))
+        DISPLAYSURF.blit(EmptyText, (xcoord,ycoord+50))
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
+
+def smallInvMenu(playerInv, invKeys):
+    HeaderText = inventoryFont.render('--Inventory--', True, BLACK)
+    xcoord = 212
+    Open = True
+    selectNum = 0
+    while Open:
+        ycoord = 150
+        for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_e:
+                    Open = False
+                if event.key==pygame.K_w:
+                    if selectNum > 0:
+                        selectNum -= 1
+                    else:
+                        selectNum = len(invKeys)-1
+                if event.key==pygame.K_s:
+                    if selectNum < len(invKeys)-1:
+                        selectNum += 1
+                    else:
+                        selectNum = 0
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        DISPLAYSURF.blit(HeaderText, (xcoord,ycoord))
+        ycoord += 50
+        for key in invKeys:
+            if invKeys[selectNum] == key:
+                itemtext = selectFont.render(key + '---' + str(playerInv[key]),
+                                             True, BLACK)
+            else:
+                itemtext = inventoryFont.render(key + '---' + str(playerInv[key]),
+                                                True, BLACK)
+            DISPLAYSURF.blit(itemtext, (xcoord,ycoord))
+            ycoord += 40
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
+
 #START LOCATION
 player.set_location(level)
 ######START GAME
