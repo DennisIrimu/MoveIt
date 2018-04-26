@@ -279,6 +279,40 @@ def loadMenu():
         DISPLAYSURF.blit(Loadtext2, (170,200))
         FPSCLOCK.tick(FPS)
         pygame.display.update()
+def saveMenu():
+    inMenu = True
+    save = False
+    xcoord = 212
+    Titletext = inventoryFont.render('Save the game?', True, BLACK)
+    while inMenu:
+        ycoord = 150
+        for event in pygame.event.get():
+            if (event.type==pygame.QUIT):
+                pygame.quit()
+                sys.exit()
+            if (event.type==pygame.KEYDOWN):
+                if (event.key==K_w):
+                    save = True
+                if (event.key==K_s):
+                    save = False
+                if (event.key==K_SPACE):
+                    inMenu = False
+        if save == True:
+            Yestext = selectFont.render('Yes!', True, BLACK)
+            Notext = inventoryFont.render('No!', True, BLACK)
+        else:
+            Yestext = inventoryFont.render('Yes!', True, BLACK)
+            Notext = selectFont.render('No!', True, BLACK)
+        DISPLAYSURF.blit(scroll, (scrollX,scrollY))
+        DISPLAYSURF.blit(Titletext, (xcoord,ycoord))
+        ycoord += 50
+        DISPLAYSURF.blit(Yestext, (xcoord,ycoord))
+        ycoord += 50
+        DISPLAYSURF.blit(Notext, (xcoord,ycoord))
+        FPSCLOCK.tick(FPS)
+        pygame.display.update()
+    if save == True:
+        saveGame()
 
 #START LOCATION
 player.set_location(level)
