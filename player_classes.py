@@ -129,3 +129,13 @@ class Player(pygame.sprite.Sprite):
                 self.rect.bottom = collision.get_top()
             else:
                 self.rect.top = collision.get_bottom()
+                
+    def update_inventory(self, item):
+        '''adds item to inventory
+        item: a dictionary of key value pairs that will be added self.inventory'''
+        for key in item.keys():
+            if key in self.inventory:
+                self.inventory[key] += item[key]
+            else:
+                self.inventory[key] = item[key]
+    
