@@ -100,3 +100,32 @@ class Player(pygame.sprite.Sprite):
                 self.timeNum = 0
         else:
             self.imageNum = 0
+
+    def items_coll(self, items):
+        '''checks if player collides with items in group
+        kills sprites that collide
+        items: Sprite Group of items with pickUp method'''
+        collisionList = pygame.sprite.spritecollide(self, items, True)
+        for collision in collisionList:
+            item = collision.pick_up()
+            self.update_inventory(item)
+
+    def walls_coll_x(self, walls):
+        '''tests for collisions with walls on the x axis
+        walls: Sprite Group of walls'''
+        collisionList = pygame.sprite.spritecollide(self, walls, False)
+        for collision in collisionList:
+            if self.left == False:
+                self.rect.right = collision.get_left()
+            else:
+                self.rect.left = collision.get_right()
+                
+    def walls_coll_y(self, walls):
+        '''tests for collisions with walls on the y axis
+        walls: Sprite Group of walls'''
+        collisionList = pygame.sprite.spritecollide(self, walls, False)
+        for collision in collisionList:
+            if self.down == True:
+                self.rect.bottom = collision.get_top()
+            else:
+                self.rect.top = collision.get_bottom()
