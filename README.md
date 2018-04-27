@@ -13,10 +13,12 @@ Install pygame from pygame.org   or  run $pip install pygame
 
 
 Controls used for the game are ::
-          Left    :
-          Right   :
-          Up      :
-          Bottom  :```
+          Left    : A
+          Right   : D
+          Up      : W
+          Bottom  : Z
+          ```
+          For instructions :: E
 
 ## Authors
 
